@@ -300,6 +300,68 @@ footer {
     margin-top: -5px;
 }
 
+.anomaly {
+    display: block;
+    transition: color 0.3s ease opacity 0.5s ease, margin 0.8s ease, height 0.8s ease;
+    color: inherit;
+}
+
+.anomaly.triggered {
+    animation: blink-red 0.3s steps(2, start) infinite;
+}
+
+@keyframes blink-red {
+    0% { color: red; }
+    100% { color: inherit; }
+}
+
+@keyframes rgbShift {
+    0%, 100% {
+        transform: none;
+        opacity: 0;
+    }
+    25% {
+        transform: translate(-2px, 0);
+        opacity: 0.12;
+    }
+    50% {
+        transform: translate(2px, 0);
+        opacity: 0.15;
+    }
+    75% {
+        transform: translate(-1px, 0);
+        opacity: 0.1;
+    }
+}
+
+.rgb-glitch-overlay::before,
+.rgb-glitch-overlay::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transform: none;
+    mix-blend-mode: screen;
+}
+
+.rgb-glitch.rgb-glitch-overlay::before,
+.rgb-glitch.rgb-glitch-overlay::after {
+    animation: rgbShift 0.2s steps(1) infinite;
+}
+
+.rgb-glitch.rgb-glitch-overlay::before {
+    background: rgba(255, 0, 0, 0.15);
+}
+
+.rgb-glitch.rgb-glitch-overlay::after {
+    background: rgba(0, 255, 255, 0.15);
+}
+
 .text-icon {
     width: 16px;
     height: 16px;
@@ -341,11 +403,9 @@ footer {
     line-height: 1;
 }
 
-.letter-file .glitch {
-    color: #a00;
-    font-style: italic;
-    text-decoration: line-through;
-    opacity: 0.8;
+.letter-file .unusual {
+    margin-top: -25px;
+    margin-bottom: -20px;
 }
 
 .letter-file .subject {
