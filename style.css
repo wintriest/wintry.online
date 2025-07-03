@@ -58,6 +58,24 @@ footer {
     text-align: center;
 }
 
+@media only screen and (max-width: 640px) {
+    html {
+        background-color: #111;
+    }
+
+    main {
+        width:100%;
+        order:2;
+    }
+
+    aside {
+        display:block;
+        width:100%;
+        order:1;
+        margin-left:0;
+    }
+}
+
 /* ================== Components ================== */
 #flex {
     display: flex;
@@ -88,6 +106,12 @@ footer {
 
 #container a {
     color: var(--link-color);
+}
+
+@media only screen and (max-width: 640px) {
+    #flex {
+        flex-wrap:wrap;
+    }
 }
 
 /* ==================== Directory =================== */
@@ -131,6 +155,13 @@ footer {
 
     .node a:hover {
         text-decoration: underline;
+    }
+
+    @media only screen and (max-width: 640px) {
+        .tree {
+            margin-top: 0px;
+            margin-left: -5px;
+        }
     }
 
 .sidebar-title, .title-bar {
@@ -197,10 +228,12 @@ footer {
         padding: 10px;
     }
 
-    .cover img {
+    .cover > img {
         width: 150px;
-        height: auto;
-        /* image-rendering: pixelated; */
+        height: 200px;
+        image-rendering: pixelated;
+        margin-bottom: -5px;
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
     }
 
     .info {
@@ -221,10 +254,87 @@ footer {
         font-size: 18px;
         color: var(--text-color);
         font-style: italic;
+        text-align: justify;
         margin-left: 8px;
         margin-bottom: 8px;
         padding-bottom: 15px;
     }
+
+    @media only screen and (max-width: 640px) {
+        .info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .story-title {
+            padding-top: 0px;
+        }
+        
+        .synopsis {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            text-align: justify;
+            font-style: italic;
+            margin-bottom: 8px;
+            padding-bottom: 0px;
+        }
+    }
+
+    /* ================= Image View ================== */
+        .cover-img {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cover-img:hover {
+            transform: scale(1.02);
+        }
+
+        .modal {
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%;
+            height: 130%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-cover > img {
+            width: 612px;
+            height: 792px;
+        }
+
+        .modal-window {
+            position: absolute;
+            top: 47%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a1a1a;
+            color: #ddd;
+            border: 1px solid #444;
+            border-radius: 4px;
+            box-shadow: 0 0 20px #000;
+        }
+
+        @media only screen and (max-width: 640px) {
+            .modal {
+                width: 100%;
+                height: 150%;
+            }
+
+            .modal-cover > img {
+                width: 306px;
+                height: 396px;
+            }
+
+            .modal-window {
+                top: 55%;
+            }
+        }
+
     /* ============== Chapter Selection ============== */
         .locked {
             opacity: 60%;
@@ -444,49 +554,3 @@ footer {
             display: block;
             color: inherit;
         }
-
-@media only screen and (max-width: 640px) {
-    html {
-        background-color: #111;
-    }
-
-    #flex {
-        flex-wrap:wrap;
-    }
-
-    main {
-        width:100%;
-        order:2;
-    }
-
-    aside {
-        display:block;
-        width:100%;
-        order:1;
-        margin-left:0;
-    }
-
-    .tree {
-        margin-top: 0px;
-        margin-left: -5px;
-    }
-
-    .info {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .story-title {
-        padding-top: 0px;
-    }
-    
-    .synopsis {
-        font-size: 0.8rem;
-        color: var(--text-color);
-        font-style: italic;
-        margin-bottom: 8px;
-        padding-bottom: 0px;
-    }
-}

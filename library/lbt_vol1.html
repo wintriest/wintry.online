@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/style.css"/>
         <link rel="icon" href="/assets/sprites/snowman.gif" type="image/gif"/>
+        <script type="module" src="modal.js"></script>
     </head>
     <body>
         <div id="container">
@@ -20,15 +21,27 @@
                             <p>[ACCESS POINT - LIBRARY NODE 01]<br>
                             <br>User: Guest  
                             <br>Status: Linked ▓▓░
-                            <br>> Locating archive: "Letters Beyond Time, Vol. 1"  
+                            <br>> Locating archive: "Letters beyond Time, Vol. 1"  
                             <br>> Connection established.  
-                            <br>>> Select a chapter from the archive shelf.</p>       
+                            <br>>> Select a chapter from the archive.</p>       
                         </div>
                         <div class="title-bar">&nbsp; Details</div>
                         <div class="content">
                             <div class="details">
                             <div class="cover">
-                                <img src="/assets/covers/lbt_vol1.png" alt="Letters Beyond Time - Volume 1">
+                                <img src="/assets/covers/lbt_vol1.png?v=2" alt="Letters beyond Time - Volume 1" id="openDetails" class="cover-img" />
+                                <div id="detailsModal" class="modal">
+                                    <div class="modal-window">
+                                        <div class="title-bar" id="closeModal">&nbsp; Details</div>
+                                        <div class="content">
+                                        <div class="details">
+                                            <div class="modal-cover">
+                                            <img id="modal-cover" src="/assets/covers/lbt_vol1.png?v=2" alt="Letters beyond Time - Volume 1">
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="info">
                                 <div class="story-title">Letters Beyond Time, Vol. 1</div>
