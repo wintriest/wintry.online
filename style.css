@@ -4,6 +4,16 @@
     src: url("./assets/fonts/FreePixel.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Nosutaru Dot";
+    src: url("./assets/fonts/Nosutaru-dotMPlusH-10-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "VCR OSD Mono";
+    src: url("./assets/fonts/VCR_OSD_MONO_1.001.ttf") format("truetype");
+}
+
 :root {
     --background: #15191a;
     --main-color: #c6c4c3;
@@ -59,6 +69,9 @@ footer {
 }
 
 @media only screen and (max-width: 640px) {
+    body, html {
+        overflow-x: hidden;
+    }
     html {
         background-color: #111;
     }
@@ -461,6 +474,10 @@ footer {
             margin-bottom: -20px;
         }
 
+        .letter-file .japanese {
+            font-family: "Nosutaru Dot", monospace;
+        }
+
     /* ============= Chapter Interface =============== */
         .chapter-nav {
             display: flex;
@@ -534,23 +551,92 @@ footer {
 
     /* =================== Anomaly =================== */
         /* =================== 2.3 =================== */
-        .ophiuchus-3491 {
-            display: block;
-            transition: color 0.3s ease opacity 0.5s ease, margin 0.8s ease, height 0.8s ease;
-            color: inherit;
+        @keyframes anomalyDetected {
+            0%, 49% {
+                color: red;
+                background-color: black;
+            }
+            50%, 100% {
+                color: inherit;
+                background-color: inherit;
+            }
         }
 
-        .ophiuchus-3491.detected {
-            animation: detected 0.3s steps(2, start) infinite;
+        .blink-red {
+            animation: anomalyDetected 1.2s step-end infinite;
         }
 
-        @keyframes detected {
-            0% { color: red; }
-            100% { color: inherit; }
+        .timeline-correction p {
+            margin-top: 0rem;
         }
 
         /* =================== 3.1 =================== */
-        .disruption {
-            display: block;
-            color: inherit;
+        .migraine {
+            display: inline-block;
+            text-indent: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            position: relative;
+        }
+
+        .disconnection .void{
+            font-family: "VCR OSD Mono", monospace;
+        }
+
+        .void {
+            display: inline-block;
+            text-indent: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            position: relative;
+            background-color: black;
+        }
+
+        #nothing {
+            font-size: larger;
+            font-weight: bold;
+            transform: translate(203.8px, 50px);
+        }
+
+        #my-body {
+            transform: translate(23.8px, -30px);
+        }
+
+        #cold {
+            opacity: 80%;
+            font-weight: 400;
+            transform: translate(318.8px, -25px);
+        }
+
+        #stability {
+            text-shadow: 13px 7px 0px rgba(197, 197, 197, 0.3);
+        }
+
+        #fall {
+            text-indent: 1.8rem;
+            font-size: 90%;
+            font-weight: 100;
+            font-family: 'VCR OSD Mono', monospace;
+        }
+
+        @media only screen and (max-width: 640px) {
+            #nothing {
+                transform: translate(113.8px, 40px);
+            }
+
+            #my-body {
+            transform: translate(-10px, -30px);
+            }
+
+            #where {
+                transform: translate(-40px, 0px);
+            }
+
+            #i-cant {
+                transform: translate(-30px, 0px);
+            }
+
+            #cold {
+                transform: translate(228.8px, -25px);
+            }
         }

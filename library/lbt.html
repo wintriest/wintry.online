@@ -6,8 +6,9 @@
         <meta property="og:image" content="https://sadgrl.online/images/og/homepage.png"/>
         <meta property="twitter:card" content="summary_large_image"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css"/>
-        <link rel="icon" href="./assets/sprites/snowman.gif" type="image/gif"/>
+        <link rel="stylesheet" href="/style.css"/>
+        <link rel="icon" href="/assets/sprites/snowman.gif" type="image/gif"/>
+        <script type="module" src="modal.js"></script>
     </head>
     <body>
         <div id="container">
@@ -17,16 +18,19 @@
                     <div class="wrapper">
                         <div class="title-bar">&nbsp; Terminal</div>
                         <div class="content">
-                            <p>User: Guest
-                            <br>Status: Idle ▓░░
-                            <br>> Launch a story from the shelf.</p>       
+                            <p>[ACCESS POINT - LIBRARY NODE 01]<br>
+                            <br>User: Guest  
+                            <br>Status: Linked ▓▓░
+                            <br>> Locating archive: "Letters beyond Time"  
+                            <br>> Connection established.  
+                            <br>>> Select a volume from the archive.</p>       
                         </div>
-                        <div class="title-bar">&nbsp; Shelf</div>
+                        <div class="title-bar">&nbsp; Volume Selection</div>
                         <div class="content">
                             <div class="desktop">
-                                <a href="./library/lbt.html">
-                                    <img src="./assets/icons/letter.png" alt="Letters beyond Time" class="ico">
-                                    <div class="label">Letters Beyond Time</div>
+                                <a href="/library/lbt_vol1.html">
+                                    <img src="../assets/icons/vol-1.png" alt="Letters beyond Time, Vol. 1" class="ico">
+                                    <div class="label">Volume 1</div>
                                 </a>
                             </div>
                         </div>
@@ -38,11 +42,6 @@
                             <p class="update">06.16.2025 – <i>Letters beyond Time, Vol. 1</i>: Chapter 1 published.</p>
                             <p class="update">05.25.2025 – <i>Letters beyond Time, Vol. 1</i>: Prologue published.</p>
                         </div>
-                        <div class="title-bar">&nbsp; System Info</div>
-                        <div class="content">
-                            <p><img src="./assets/sprites/sadgrlonline.gif" alt="sadgrl.online" class="dev-tag"> Base layout from <a href="https://sadgrl.online/" target="_blank">sadgrl.online</a></p>
-                            <p><img src="./assets/sprites/snowman.gif" alt="wintry.online" class="dev-tag"> Customizations and stories by <a href="https://github.com/wintriest/" target="_blank">wintry</a></p>
-                        </div>
                     </div>
                 </main>
                 <aside class="directory">
@@ -51,7 +50,10 @@
                         <div class="content">
                             <div class="tree">
                             <div class="node">
-                                <img src="/assets/icons/home.png" class="node-icon"> <a href="index.html">Home</a>
+                                <img src="/assets/icons/home.png" class="node-icon"> <a href="/index.html">Home</a>
+                            </div>
+                            <div class="node parent">
+                                └─<img src="/assets/icons/letter.png" class="node-icon"> <a href="/library/lbt.html">Letters Beyond Time</a>
                             </div>
                             </div>       
                         </div>
