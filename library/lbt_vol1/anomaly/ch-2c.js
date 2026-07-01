@@ -1,269 +1,144 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const target = document.querySelector(".japanese");
-    const translatedText = "Just to reach the end of this journey with you by my side…";
-    let hasSwitched = false;
+    const atr = document.getElementById("atr");
+    if (!atr) return;
 
-    function eraseText(element, delay = 40, callback) {
-        let text = element.textContent;
-        let i = text.length;
+    const chars = "¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽž";
 
-        function step() {
-            if (i >= 0) {
-                element.textContent = text.substring(0, i);
-                i--;
-                setTimeout(step, delay);
-            } else {
-                callback();
-            }
+    function randomGlyphs(length = 3) {
+        let result = "";
+        for (let i = 0; i < length; i++) {
+            result += chars[Math.floor(Math.random() * chars.length)];
         }
-
-        step();
+        return result;
     }
 
-    function typeWrite(element, newText, delay = 40) {
-        let i = 0;
+    function scrambleLoop() {
+        atr.textContent = randomGlyphs();
 
-        function step() {
-            if (i <= newText.length) {
-                element.textContent = newText.substring(0, i);
-                i++;
-                setTimeout(step, delay);
-            }
-        }
+        // Random delay between 0.8s and 5.9s
+        const delay = Math.random() * (5900 - 800) + 800;
 
-        step();
+        setTimeout(scrambleLoop, delay);
     }
 
-    function isElementCentered(element) {
-        const rect = element.getBoundingClientRect();
-        const centerY = window.innerHeight / 2;
-        return rect.top <= centerY && rect.bottom >= centerY;
-    }
-
-    function checkPosition() {
-        if (!hasSwitched && isElementCentered(target)) {
-            hasSwitched = true;
-            target.classList.remove("japanese");
-
-            eraseText(target, 40, () => {
-                setTimeout(() => {
-                    typeWrite(target, translatedText, 40);
-                }, 400);
-            });
-        }
-    }
-
-    window.addEventListener("scroll", checkPosition);
-    window.addEventListener("resize", checkPosition);
-    checkPosition();
+    scrambleLoop();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const trigger = document.getElementById("detect-point");
-  if (!trigger) return;
+    const trigger = document.getElementById("figure");
+    const target = document.getElementById("looking");
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        observer.disconnect();
-        purgeTimelineLeak(trigger);
-      }
-    });
-  }, {
-    threshold: 0.5,
-    rootMargin: "0% 0% -20% 0%"
-  });
+    if (!trigger || !target) return;
 
-  observer.observe(trigger);
-});
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                observer.disconnect();
 
-document.querySelectorAll(".timeline-correction p").forEach(p => {
-  Object.assign(p.style, {
-    visibility: "hidden",
-    opacity: "0",
-    margin: "0",
-    padding: "0",
-    height: "0",
-    overflow: "hidden"
-  });
-});
-
-async function purgeTimelineLeak(triggerEl) {
-  const terminal = document.getElementById("terminal");
-  const group = triggerEl.closest('.timeline-leakage');
-  const anomaly = group.querySelectorAll('.anomaly');
-  const timelineCorrection = document.querySelector('.timeline-correction');
-
-  disableScroll();
-
-  // Phase 1: Blinking Text
-  anomaly.forEach(p => {
-    p.classList.add("blink-red");
-    p.dataset.originalText = p.textContent;
-  });
-
-  logTerminal(">>> Cross-timeline leakage: Ophiuchus-3491 → Cassiopeia-25741", terminal);
-  await wait(3400);
-
-  // Phase 2: Auto-Scroll
-  await autoScroll("restore-point");
-  disableScroll();
-
-  // Phase 3: Scramble Text
-  anomaly.forEach(p => scrambleText(p));
-  logTerminal(">>> Executing memory purge...", terminal);
-
-  await wait(1500);
-  enableScroll();
-
-  // Phase 4: Erasure
-  logTerminal(">>> Redacting residual anomaly…", terminal);
-  anomaly.forEach(p => {
-    p.classList.remove("blink-red");
-    clearInterval(p._scrambleInterval);
-  });
-  await Promise.all([...anomaly].map(backspaceErasure));
-
-  await wait(700);
-  // Phase 5: Timeline Correction
-  if (timelineCorrection) {
-    const paragraphs = timelineCorrection.querySelectorAll("p");
-    for (const p of paragraphs) {
-      const originalText = p.textContent;
-      p.textContent = "";
-      p.style.visibility = "visible";
-      p.style.opacity = 1;
-      await typeWriter(p, originalText, 6);
-    }
-  }
-
-  logTerminal(">>> Residual anomaly successfully contained.", terminal);
-}
-
-function scrambleText(el) {
-  const original = el.dataset.originalText || el.textContent;
-  const chars = '¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽž';
-  const originalArr = original.split('');
-
-  const interval = setInterval(() => {
-    const scrambled = originalArr.map(char =>
-      Math.random() < 0.25 ? chars[Math.floor(Math.random() * chars.length)] : char
-    );
-    el.textContent = scrambled.join('');
-  }, 100);
-
-  el._scrambleInterval = interval;
-}
-
-function backspaceErasure(el) {
-  return new Promise(resolve => {
-    const original = el.textContent;
-    let len = original.length;
-
-    const interval = setInterval(() => {
-      if (len <= 0) {
-        clearInterval(interval);
-        el.textContent = "";
-        Object.assign(el.style, {
-          opacity: "0",
-          margin: "0",
-          padding: "0",
-          height: "0",
-          overflow: "hidden"
+                // Replace with your desired text
+                target.textContent = "Anomalous figure detected…?";
+            }
         });
-        resolve();
-      } else {
-        el.textContent = original.slice(0, --len);
-      }
-    }, 10);
-  });
-}
-
-function typeWriter(element, text, delay = 30) {
-  return new Promise(resolve => {
-    let i = 0;
-    element.textContent = "";
-    Object.assign(element.style, {
-      visibility: "visible",
-      opacity: "1",
-      margin: "",
-      padding: "",
-      height: "",
-      overflow: ""
+    }, {
+        threshold: 0.5,
+        rootMargin: "0% 0% -20% 0%"
     });
 
-    function type() {
-      if (i < text.length) {
-        element.textContent += text.charAt(i++);
-        setTimeout(type, delay);
-      } else {
-        resolve();
-      }
+    observer.observe(trigger);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const leak = document.getElementById("leak");
+    if (!leak) return;
+
+    const originalHTML = leak.innerHTML;
+
+    const chars = "¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽž";
+
+    function randomString(length) {
+        let out = "";
+        for (let i = 0; i < length; i++) {
+            out += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return out;
     }
 
-    type();
-  });
-}
+    function scheduleLeak() {
+        const delay = 15000 + Math.random() * 15000;
+        setTimeout(beginLeak, delay);
+    }
 
-function autoScroll(id) {
-  return new Promise(resolve => {
-    const target = document.getElementById(id);
-    if (!target) return resolve();
+    function beginLeak() {
 
-    const topOffset = target.getBoundingClientRect().top + window.pageYOffset;
-    const targetPosition = topOffset - (window.innerHeight * 0.2);
+        // How many bursts this leak has
+        const bursts = Math.floor(Math.random() * 8) + 4; // 4–11 bursts
 
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
+        let currentBurst = 0;
 
-    // Observe until Target
-    const check = setInterval(() => {
-      const rect = target.getBoundingClientRect();
-      if (rect.top <= window.innerHeight * 0.2 + 2) {
-        clearInterval(check);
-        resolve();
-      }
-    }, 50);
-  });
-}
+        function burst() {
 
-let scrollLockHandler = null;
+            // Finished all bursts
+            if (currentBurst >= bursts) {
+                leak.innerHTML = originalHTML;
+                scheduleLeak();
+                return;
+            }
 
-function disableScroll() {
-  document.body.style.overflow = 'hidden';
+            currentBurst++;
 
-  // iOS Safari
-  scrollLockHandler = function (e) {
-    e.preventDefault();
-  };
-  document.addEventListener('touchmove', scrollLockHandler, { passive: false });
-}
+            // -----------------------
+            // LEAK ON
+            // -----------------------
 
-function enableScroll() {
-  document.body.style.overflow = '';
+            leak.innerHTML = `
+                <a href="./atr.html" class="nav-button">
+                    <span id="entry">Chapter 3</span> →
+                </a>
+            `;
 
-  if (scrollLockHandler) {
-    document.removeEventListener('touchmove', scrollLockHandler, { passive: false });
-    scrollLockHandler = null;
-  }
-}
+            const entry = document.getElementById("entry");
+            const originalText = "Chapter 3";
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+            const scramble = setInterval(() => {
+                entry.textContent = randomString(originalText.length);
+            }, 20 + Math.random() * 20);
 
-function logTerminal(line, terminal) {
-  if (!terminal) return;
+            // Random burst duration
+            // Most are short
+            // Some are long enough to click
+            let onTime;
 
-  let last = terminal.lastElementChild;
+            const chance = Math.random();
 
-  if (!last || last.tagName !== "P" || last.classList.contains("static-terminal")) {
-    last = document.createElement("p");
-    terminal.appendChild(last);
-  }
+            if (chance < 0.60) {
+                // quick spark
+                onTime = 80 + Math.random() * 250;
+            }
+            else if (chance < 0.90) {
+                // medium
+                onTime = 500 + Math.random() * 1200;
+            }
+            else {
+                // rare long stable leak
+                onTime = 2500 + Math.random() * 4500;
+            }
 
-  last.innerHTML += (last.innerHTML ? "<br>" : "") + line;
-}
+            setTimeout(() => {
 
+                clearInterval(scramble);
+
+                leak.innerHTML = originalHTML;
+
+                // Random outage before next spark
+                const offTime = 40 + Math.random() * 900;
+
+                setTimeout(burst, offTime);
+
+            }, onTime);
+        }
+
+        burst();
+    }
+
+    scheduleLeak();
+});
